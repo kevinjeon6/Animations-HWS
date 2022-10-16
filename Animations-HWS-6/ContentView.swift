@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var animationAmount = 1.0
+    
+    
     var body: some View {
-        Text("This is Project #6 - Animations of the 100 Days of SwiftUI")
-            .padding()
+        Button {
+            animationAmount += 1
+        } label: {
+            Text("Tap Me")
+        }
+        .padding(50)
+        .background(.red)
+        .foregroundColor(.white)
+        .clipShape(Circle())
+        .scaleEffect(animationAmount)
+        .blur(radius: (animationAmount - 1) * 3)
+        .animation(.default, value: animationAmount)
+
     }
 }
 
@@ -19,3 +34,11 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+
+
+/*
+ animation modifier applies a default animation to the button view whenever the animationAmount chagnes
+ 
+ Add blur modifier. When each tap of the button, the blur increases
+ */
