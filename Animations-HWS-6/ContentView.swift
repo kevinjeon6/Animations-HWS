@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         Text("This is Project #6 - Animations of the 100 Days of SwiftUI")
+            .padding()
     }
 }
 
