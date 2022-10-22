@@ -9,17 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var animationAmount = 1.0
+    @State private var animationAmount = 0.0
     
     
     var body: some View {
-     print(animationAmount)
-         return VStack {
-            Stepper("Scale amount", value: $animationAmount.animation(), in: 1...10)
-            Spacer()
-            
             Button {
-                animationAmount += 1
+                
+                withAnimation(.interpolatingSpring(stiffness: 5, damping: 1)) {
+                    animationAmount += 360
+                }
+                
             } label: {
                 Text("Tap Me")
             }
@@ -27,12 +26,8 @@ struct ContentView: View {
             .background(.red)
             .foregroundColor(.white)
             .clipShape(Circle())
-            .scaleEffect(animationAmount)
-
-            
-        }
-
-    }
+            .rotation3DEffect(.degrees(animationAmount), axis: (x:0, y: 1, z: 0))
+       }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -47,4 +42,7 @@ struct ContentView_Previews: PreviewProvider {
  animation modifier applies a default animation to the button view whenever the animationAmount chagnes
  
  Add blur modifier. When each tap of the button, the blur increases
+ 
+ 
+ withAnimation can have a parameter
  */
