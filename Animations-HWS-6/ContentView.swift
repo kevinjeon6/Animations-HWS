@@ -9,33 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var dragAmount = CGSize.zero
-    //CGSize is core graphics size and zero means no height or width.
-    
+ @State private var isShowingRed = false
     
     var body: some View {
-        LinearGradient(gradient: Gradient(colors: [.yellow, .red]), startPoint: .topLeading, endPoint: .bottomTrailing)
-            .frame(width: 300, height: 200)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .offset(dragAmount)
-            .gesture(
-            DragGesture()
-                .onChanged({ dragAmount = $0.translation})
-            //The translation is the drag which tells us how far it's moved from the start point
-                .onEnded({ _ in
-                    //Explicit animation in the onEnded modifier
-                    
-                    withAnimation {
-                        dragAmount = .zero
-                    }
-                    
-                })
-            )
-        //Implicit animation is with the animation modifier
-//            .animation(.spring(), value: dragAmount)
-    
+        VStack {
+            Button {
+                
+                withAnimation {
+                    isShowingRed.toggle()
+                }
+                
+                
+                
+            } label: {
+                Text("Tap me")
+            }
             
-       }
+            if isShowingRed {
+                
+                Rectangle()
+                    .fill(.red)
+                    .frame(width: 200, height: 200)
+                    .transition(.scale)
+            }
+            
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
